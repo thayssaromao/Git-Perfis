@@ -1,107 +1,82 @@
-# This repo is no longer maintained. Consider using `npm init vite` and selecting the `svelte` option or — if you want a full-fledged app framework — use [SvelteKit](https://kit.svelte.dev), the official application framework for Svelte.
+# 📘 Projeto: Perfis do GitHub com Svelte
+
+Este projeto consiste em uma aplicação Svelte que permite buscar usuários do GitHub e exibir informações detalhadas de seus perfis, incluindo repositórios públicos recentes. A interface é responsiva e utiliza boas práticas de organização de componentes, reatividade e consumo de APIs.
 
 ---
 
-# svelte app
+## 🔗 Integração com API do GitHub
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+A aplicação realiza requisições HTTP para diferentes rotas da [API pública do GitHub](https://api.github.com), permitindo buscar:
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+* Informações do perfil de um usuário (`/users/:username`)
+* Lista de repositórios públicos do usuário (`/users/:username/repos`)
 
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
+Os dados retornados são tratados e apresentados de forma limpa na interface.
+
+---
+
+## 🔁 Renderização de listas com `#each`
+
+A lista de repositórios do usuário é exibida dinamicamente utilizando o bloco `#each` do Svelte:
+
+```svelte
+{#each repositorios as repositorio}
+  <li><a href={repositorio.url}>{repositorio.nome}</a></li>
+{/each}
 ```
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+Essa estrutura permite renderizar qualquer quantidade de repositórios recebidos da API.
 
+---
 
-## Get started
+## ⚡ Reatividade com `$:`
 
-Install the dependencies...
+A aplicação faz uso da reatividade declarativa do Svelte para executar lógica automaticamente sempre que um valor muda:
 
-```bash
-cd svelte-app
-npm install
+---
+
+## 🧩 Componentes reutilizáveis com `<slot>`
+
+Alguns componentes utilizam a tag `<slot>` para receber conteúdo dinâmico, o que permite maior flexibilidade e reuso.
+
+---
+
+## 🧱 Tecnologias utilizadas
+
+* [Svelte](https://svelte.dev/)
+* TypeScript
+* API do GitHub
+* CSS puro
+
+---
+
+## 🚀 Funcionalidades
+
+* Buscar usuários do GitHub
+* Exibir dados de perfil: nome, login, seguidores, etc.
+* Listar os repositórios mais recentes com links clicáveis
+* Interface organizada por componentes reutilizáveis
+* Estilo responsivo com CSS modularizado
+
+---
+
+## 📁 Estrutura de pastas (resumida)
+
+```
+src/
+├── components/
+│   ├── Usuario.svelte
+│   ├── Titulo.svelte
+│   └── BarraSuperior.svelte
+├── interfaces/
+│   ├── IUsuario.ts
+│   └── IRepositorios.ts
+├── requisicoes/
+│   └── index.ts
+├── App.svelte
 ```
 
-...then start [Rollup](https://rollupjs.org):
+---
+## 📷 Resultado Final
+<img width="1401" height="638" alt="image" src="https://github.com/user-attachments/assets/14191876-e69c-4c50-8d23-e78e0b444a2d" />
 
-```bash
-npm run dev
-```
-
-Navigate to [localhost:8080](http://localhost:8080). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
-
-## Building and running in production mode
-
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
-
-
-## Single-page app mode
-
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
-
-## Using TypeScript
-
-This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
-
-```bash
-node scripts/setupTypeScript.js
-```
-
-Or remove the script via:
-
-```bash
-rm scripts/setupTypeScript.js
-```
-
-If you want to use `baseUrl` or `path` aliases within your `tsconfig`, you need to set up `@rollup/plugin-alias` to tell Rollup to resolve the aliases. For more info, see [this StackOverflow question](https://stackoverflow.com/questions/63427935/setup-tsconfig-path-in-svelte).
-
-## Deploying to the web
-
-### With [Vercel](https://vercel.com)
-
-Install `vercel` if you haven't already:
-
-```bash
-npm install -g vercel
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-vercel deploy --name my-project
-```
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
