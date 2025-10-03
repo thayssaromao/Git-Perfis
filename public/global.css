@@ -1,0 +1,22 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	/* roboto */
+}
+
+li{
+	list-style: none;
+}
+
+img{
+	display: block;
+}
+
+body{
+	width: 100;
+	height: 100vh;
+	padding: 4rem 18%;
+	background-image: url('/src/assets/bg.png');
+}
+
